@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+  <h1 class="display-4 d-flex justify-content-center align-items-center">Platos a la carta</h1>
+<div class="row d-flex flex-wrap">
+
+    {% for task in tasks %}
+    
+        <div class="col-4 mt-5 mb-5 d-flex justify-content-center align-items-center">
+            <div class="card" style="width: 14rem;">
+              <div class="imagecontainer">
+              <img src="{{ task.subida_set.first.image.url }}" alt="Imagen de la tarea" class="img-fluid rounded">
+              </div>
+                <div class="card-body column mx-auto">
+                  <h5 class="card-title"><a href="{% url 'task_detail' task.id %}">{{task.title}}</a></h5>
+                </div>
+              </div>
+            </div>
+                {% endfor %}
+        <p>{{task.datecompleted|date:'M j Y:i'}}</p>
+      </div>
+    </div>
+    {% endblock %}

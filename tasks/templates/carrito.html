@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h1 class="display-2 d-flex text-align-center justify-content-center user-select-none">Carrito de compras</h1>
+  <div class="container-fluid my-5 d-flex text-align-center justify-content-between">
+    
+    <div class="row mx-2 my-2 p-3 card d-flex flex-row" style="width: 40rem;">
+      
+      <div class="col-6 ml-2 user-select-none">
+        <p>Producto</p>
+        {% for consumo in consumos %}
+        <div class="productos">
+          {{ consumo.title }}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col-2 ml-2 user-select-none">
+        <p>Precio</p>
+        {% for consumo in consumos %}
+        <div class="productos_precio">
+          {{ consumo.precio }}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col-2 user-select-none">
+        <p>Cantidad</p>
+        {% for consumo in consumos %}
+        <div class="quantityItems d-flex text-align-center justify-content-center">
+          <button class="btn btn-warning decrement" data-target="quantity_{{ consumo.id }}">-</button>
+          <input type="text" id="quantity_{{ consumo.id }}" value="{{ consumo.cantidad }}" readonly class="quantity">
+          <button class="btn btn-warning increment" data-target="quantity_{{ consumo.id }}">+</button>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Cierre del div "col-2 ml-2" después del botón "Agregar al Carrito" -->
+      <div class="col-2 user-select-none">
+        <p>Total</p>
+        {% for consumo in consumos %}
+        <div class="total user-select-none">
+          <p class="priceUnit" data-product-price="{{ consumo.precio }}"></p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <form action="{% url 'carrito' %}" method="POST">
+      {% csrf_token %}
+      <div class="row mx-5 my-2 p-3 card user-select-none" style="width: 30rem;">
+        <p>Total del carrito</p>
+        <p>Subtotal</p>
+        <p id="total" data-total=""></p>
+        
+        <p>Envío</p>
+
+        <p>Total</p>
+
+        <button type="submit" class="btn btn-success">Finalizar compra</button>
+      </div>
+    </form>
+</div>
+
+  
+  <script type="text/javascript" src='{% static "js/ajax.js" %}'></script>
+
+{% endblock %}

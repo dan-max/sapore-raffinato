@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+{{error}}
+<main class="container-fluid">
+  <div class="card m-5 mx-auto" style="width: 40rem;">
+    <div class="card-body">
+    <div class="row">
+      <h1 class="display-4 mt-5 d-flex justify-content-center align-items-center">Agregar plato nuevo</h1>
+      <div class="col-6 mx-auto m-5">
+
+    <form action="{% url 'create_task' %}" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Nombre del platillo</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="">
+      </div>
+
+    <div class="mb-3">
+        <label for="descripcion">Descripcion</label>
+        <input type="text" name="description" id="description" class="form-control" placeholder="">
+      </div>
+    <div class="input-group mb-3">
+        
+        <input type="file" class="form-control" id="image" name="image" aria-describedby="inputGroupFileAddon03">
+        
+      </div>
+      <button type="submit" class="btn btn-primary">Subir</button>
+    </form>
+  </div>
+    </div>
+  </div>
+</div>
+</main>
+{% endblock %}

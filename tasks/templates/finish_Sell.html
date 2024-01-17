@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row mx-auto my-5 card" style="width: 40rem;">
+    <p class="h1 my-4 text-center user-select-none">
+        Agradecemos su compra
+    </p>
+    <p class="h4 my-3 user-select-none">
+        Resumen de su compra:
+    </p>
+    <p class="h4 my-3 user-select-none">
+        Detalle de la compra:
+        {% for tarea in tareas %}
+            {% for consumo in consumos %}
+                {% if consumo.producto.id == tarea.id %}
+                    <div class="productos">
+                        {{ tarea.title }} x {{ consumo.cantidad }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </p>
+    <p class="h4 my-3 user-select-none">
+        Direccion de envio:
+    </p>
+    <p class="h4 my-3 user-select-none">
+        Fecha: {{ lastSell.dateSell }}
+    </p>
+    <p class="h4 my-3 user-select-none">
+        Costo Total: {{ lastSell.totalSell }}
+    </p>
+    <form action="{% url 'finishSell' %}" method="POST" >
+        {% csrf_token %}
+    <button type="submit" class="btn btn-success mt-4">Volver al inicio</button>
+    </form>
+</div>
+
+{% endblock %}

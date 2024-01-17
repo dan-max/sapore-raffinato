@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<main class="container">
+  <div class="row">
+    <div class="col-6 d-flex justify-content-center align-items-center cabeza"  >
+      <figure class="text-center">
+          <blockquote class="blockquote">
+            <h1 class="display-2 encabesado">Sapore Raffinato</h1>
+
+          </blockquote>
+          <figcaption class="blockquote-footer">
+            <h1 class="display-7 encabesado">
+            Expertos en <cite title="Source Title">comida italiana</cite>
+          </h1>
+          </figcaption>
+        </figure>
+  </div>
+      <div class="col-4 mt-5 mb-5">
+            <form method="POST" action="/singin/" class="card card-body">
+               <h1 class="text-center">Sign in</h1>
+                  {{error}}
+                  {% csrf_token %}    
+
+                    <div class="mb-3">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username" autocomplete="off" class="form-control" placeholder="Write your username">
+                  </div>
+
+       <div class="mb-3">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Write your password">
+                    </div>
+
+
+<button class="btn btn-primary">Sign in</button>
+</form>
+</div>
+
+</div>
+</main>
+
+{% endblock %}

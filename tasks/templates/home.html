@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center titulo_principal">Platos a la carta</h1>
+    <div class="card-items">
+        
+        {% for task in tasks %}
+
+            <form action="{% url 'home' %}" id="miFormulario_{{ task.id }}" method="POST" class="task-form">
+                {% csrf_token %}
+                <div class="cartilla-principal">
+                    <div class="imagecontainer">
+                        <img src="/media/{{task.image}}" alt="Imagen de la tarea" class="img-fluid object-fit-fill border rounded">
+                    </div>
+                    <div class="text-container">
+                        <div class="texto">
+                    <h3 class="titulo_card text-center"><a href="{% url 'task_detail' task.id %}">{{task.title}}</a></h3>  
+                    <span>{{task.description}}</span>
+                </div>
+                    <div class="precio_plato">
+                        <p>Desde: S/. {{task.precio}}</p>
+                       
+                    </div>
+                    <div class="boton_input">
+                        <input type="hidden" name="task_id" value="{{ task.id }}">
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="toast" data-bs-target="#liveToast_{{ task.id }}" data-task-title="{{ task.title }}">Añadir al carrito</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+            
+           
+            <!-- Toast dinámico para cada tarea -->
+            <div class="toast " role="alert" aria-live="assertive" aria-atomic="true" id="liveToast_{{ task.id }}">
+                <div class="toast-header justify-content-between">
+                    
+                    <img src="/media/{{task.image}}"  width="40px"   alt="...">
+                
+                    <strong >{{ task.title }}</strong>
+                    <small  class="text-body-secondary">11 mins ago</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                     {{ task.description }}<span id="toastTaskTitle_{{ task.id }}"></span>.
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+
+<script type="text/javascript" src='{% static "js/ajax.js" %}'></script>
+{% endblock %}
